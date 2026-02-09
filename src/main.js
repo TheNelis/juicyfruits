@@ -29,7 +29,7 @@ const main = document.getElementById('container');
 if (window.innerWidth >= 1024) {
     main.style.height = '30000px';
 } else {
-    main.style.height = '10000px';
+    main.style.height = '20000px';
 }
 
 const scene = new THREE.Scene();
