@@ -26,6 +26,7 @@ gsap.ticker.lagSmoothing(0);
 
 
 const main = document.getElementById('container');
+document.getElementById('container').style.backgroundColor = fruitColors[0];
 if (window.innerWidth >= 1024) {
     main.style.height = '30000px';
 } else {
@@ -141,8 +142,6 @@ Promise.all(promises).then((results) => {
             scrub: true
         }
     });
-
-    document.getElementById('container').style.backgroundColor = fruitColors[0];
     
     for (let i = 0; i < group.children.length; i++) {
         let step = (Math.PI * -2) / group.children.length * (i + 1);
