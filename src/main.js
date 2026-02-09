@@ -72,11 +72,11 @@ dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5
 loader.setDRACOLoader(dracoLoader);
 
 const objectsArray = [
-    '/public/banana.glb',
-    '/public/apple.glb',
-    '/public/orange.glb',
-    '/public/pear.glb',
-    '/public/strawberry.glb',
+    '/banana.glb',
+    '/apple.glb',
+    '/orange.glb',
+    '/pear.glb',
+    '/strawberry.glb',
 ];
 const fruitColors = [
     "#fac919", // banana
@@ -97,7 +97,7 @@ const promises = objectsArray.map((path, index) => {
             const obj = gltf.scene;
             
             if (window.innerWidth >= 1024) {
-                obj.scale.set(30, 30, 30);
+                obj.scale.set(28, 28, 28);
             } else {
                 obj.scale.set(20, 20, 20);
             }
