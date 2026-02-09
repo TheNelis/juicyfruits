@@ -1,7 +1,1 @@
 @import "tailwindcss";
-
-.text-10xl {
-    @media only screen and (min-width: 1024px){
-        font-size: clamp(0px, 14vw, 14rem);
-    }
-}
