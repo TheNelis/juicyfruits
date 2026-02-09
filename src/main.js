@@ -10,10 +10,10 @@ import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const lerp = window.innerWidth > 1024 ? 0.06 : 0.02;
 const lenis = new Lenis({
     smooth: true,
-    lerp: lerp
+    lerp: 0.06,
+    smoothTouch: false,
 });
 lenis.on('scroll', ScrollTrigger.update);
 
