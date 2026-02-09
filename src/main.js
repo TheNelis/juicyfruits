@@ -169,6 +169,7 @@ Promise.all(promises).then((results) => {
             }, "-=0.5");
             tl.set('#scrolltext', { textContent: `Scroll for more fruits (${i + 2}/5)`}, "-=0.5");
             tl.to('#namespan', { y: '0%', duration: 0.5, ease: "power2.inOut" }, "-=0.5");
+            tl.to({}, { duration: 0.5 }); 
         }
     }
 });
