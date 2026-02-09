@@ -43,7 +43,8 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.set(0, 0, 90);
+camera.position.set(0, 0, 50);
+camera.lookAt(0, 0, 90);
 
 renderer.render(scene, camera);
 
@@ -52,7 +53,7 @@ renderer.render(scene, camera);
 // Lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 4);
 const pointLight = new THREE.PointLight(0xffffff, 14000);
-pointLight.position.set(20, 50, 90);
+pointLight.position.set(-20, 50, 50);
 
 scene.add(pointLight, ambientLight);
 
