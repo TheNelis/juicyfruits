@@ -75,7 +75,6 @@ function fitTextToWidth(el) {
     while (el.offsetWidth < window.innerWidth - padding) {
         size++;
         el.style.fontSize = size + 'px';
-        console.log('window:' + window.innerWidth + ', text:' + el.offsetWidth);
     }
 }
 
@@ -140,6 +139,10 @@ Promise.all(promises).then((results) => {
         group.add(obj);
     });
 
+    if (window.innerWidth < 1024) {
+        group.rotation.z = Math.PI/2;
+    }
+
     const tl = gsap.timeline({
         defaults: { ease: "linear" },
         scrollTrigger: {
@@ -154,9 +157,19 @@ Promise.all(promises).then((results) => {
     
     for (let i = 0; i < group.children.length; i++) {
         let step = (Math.PI * 2) / group.children.length * (i + 1);
+
+        if (window.innerWidth < 1024) {
+            group.children[i].rotation.x = Math.PI/2;
+            group.children[i].rotation.z = (Math.PI - (group.children.length - (i + 1)));
+        }
         
         if (i != group.children.length - 1) {
-            tl.to(group.rotation, { y: step, duration: 1, ease: "power2.inOut" });
+
+            if (window.innerWidth < 1024) {
+                tl.to(group.rotation, { x: -step, duration: 1, ease: "power2.inOut" });
+            } else {
+                tl.to(group.rotation, { y: step, duration: 1, ease: "power2.inOut" });
+            }
             tl.to('#container', { backgroundColor: fruits[i + 1].color, duration: 1, ease: "power2.inOut" }, "<");
             tl.to('#namespan', { y: '150%', duration: 0.5, ease: "power2.inOut" }, "<");
             tl.set('#namespan', { 
@@ -176,13 +189,16 @@ Promise.all(promises).then((results) => {
 });
 
 
-
-
 function animate() {
     requestAnimationFrame(animate);
     group.children.forEach((obj) => {
-        obj.rotation.y -= 0.02
-        obj.rotation.x -= 0.01
+        if (window.innerWidth < 1024) {
+            obj.rotation.z += 0.01
+            obj.rotation.x += 0.005
+        } else {
+            obj.rotation.y -= 0.01
+            obj.rotation.x -= 0.005
+        }
     });
     // controls.update();
     renderer.render(scene, camera);
