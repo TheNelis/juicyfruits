@@ -3,6 +3,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
+import Stats from 'stats.js';
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -25,8 +26,14 @@ gsap.ticker.lagSmoothing(0);
   
 
 
+let isMobile = window.innerWidth < 1024;
+
+window.addEventListener('resize', () => {
+    isMobile = window.innerWidth < 1024;
+});
+
 const main = document.getElementById('container');
-if (window.innerWidth >= 1024) {
+if (!isMobile) {
     main.style.height = '30000px';
 } else {
     main.style.height = '15000px';
@@ -43,7 +50,7 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.set(0, 0, 50);
+camera.position.set(0, 2, 50);
 camera.lookAt(0, 0, 90);
 
 renderer.render(scene, camera);
@@ -57,19 +64,12 @@ pointLight.position.set(-20, 50, 50);
 
 scene.add(pointLight, ambientLight);
 
-// Helpers & OrbitControls
-    // const lightHelper = new THREE.PointLightHelper(pointLight);
-    // const gridHelper = new THREE.GridHelper(300, 50);
-    // scene.add(lightHelper, gridHelper);
-
-    // const controls = new OrbitControls(camera, renderer.domElement);
-
 
 
 // Init fontsize
 function fitTextToWidth(el) {
     let size = 16;
-    let padding = window.innerWidth > 1024 ? 60 : 20;
+    let padding = !isMobile ? 60 : 20;
     el.style.fontSize = size + 'px';
 
     while (el.offsetWidth < window.innerWidth - padding) {
@@ -139,7 +139,7 @@ Promise.all(promises).then((results) => {
         group.add(obj);
     });
 
-    if (window.innerWidth < 1024) {
+    if (isMobile) {
         group.rotation.z = Math.PI/2;
     }
 
@@ -158,14 +158,14 @@ Promise.all(promises).then((results) => {
     for (let i = 0; i < group.children.length; i++) {
         let step = (Math.PI * 2) / group.children.length * (i + 1);
 
-        if (window.innerWidth < 1024) {
+        if (isMobile) {
             group.children[i].rotation.x = Math.PI/2;
             group.children[i].rotation.z = (Math.PI - (group.children.length - (i + 1)));
         }
         
         if (i != group.children.length - 1) {
 
-            if (window.innerWidth < 1024) {
+            if (isMobile) {
                 tl.to(group.rotation, { x: -step, duration: 1, ease: "power2.inOut" });
             } else {
                 tl.to(group.rotation, { y: step, duration: 1, ease: "power2.inOut" });
@@ -189,10 +189,22 @@ Promise.all(promises).then((results) => {
 });
 
 
+// Helpers, OrbitControls & Stats
+// const lightHelper = new THREE.PointLightHelper(pointLight);
+// const gridHelper = new THREE.GridHelper(300, 50);
+// scene.add(lightHelper, gridHelper);
+
+// const controls = new OrbitControls(camera, renderer.domElement);
+
+// var stats = new Stats();
+// stats.showPanel( 2 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild( stats.dom );
+
+
 function animate() {
-    requestAnimationFrame(animate);
+    // stats.begin();
     group.children.forEach((obj) => {
-        if (window.innerWidth < 1024) {
+        if (isMobile) {
             obj.rotation.z += 0.01
             obj.rotation.x += 0.005
         } else {
@@ -202,6 +214,9 @@ function animate() {
     });
     // controls.update();
     renderer.render(scene, camera);
+    // stats.end();
+
+    requestAnimationFrame(animate);
 }
 
-animate();
+requestAnimationFrame( animate );
