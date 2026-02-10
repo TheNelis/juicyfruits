@@ -10,7 +10,7 @@
     <title>Juicy Fruits | Niels Hos</title>
   </head>
   <body>
-    <main class="absolute w-full bg-yellow-400" id="container"></main>
+    <main class="absolute w-full bg-[#fac919]" id="container"></main>
 
     <div class="fixed z-10 w-full h-screen pt-2 pr-2 pb-32 pl-2 lg:pl-7 lg:pr-7 flex flex-col items-center justify-between pointer-events-none">
       <h1 class="relative w-full flex justify-between flex-wrap">
@@ -26,25 +26,25 @@
 
     <canvas class="fixed z-30 top-0 left-0" id="bg"></canvas>
 
-    <!-- <div class="fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center bg-[#fac919]" id="loader">
-      <span class="font-bold text-white text-center text-6xl">LOADING FRUITS...</span>
-    </div> -->
+    <div class="fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center transition-all duration-600 ease-out bg-[#fac919]" id="loader">
+      <span class="font-bold text-white text-center text-2xl lg:text-4xl">LOADING JUICY FRUITS...</span>
+    </div>
 
 
     <script type="module" src="/src/main.js"></script>
-    <!-- <script>
+    <script>
         const loader = document.getElementById('loader');
         let dots = 0;
         setInterval(() => {
             dots = (dots + 1) % 4;
-            loader.querySelector("span").textContent = "LOADING FRUITS" + ".".repeat(dots);
+            loader.querySelector("span").textContent = "LOADING JUICY FRUITS" + ".".repeat(dots);
         }, 400);
 
         window.addEventListener('load', function() {
             setTimeout(function() {
-              loader.style.display = 'none';
+              loader.style.transform = 'translateY(-110%)';
             }, 1200);
         });
-    </script> -->
+    </script>
   </body>
 </html>
