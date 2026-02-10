@@ -41,7 +41,7 @@ if (!isMobile) {
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/(window.innerHeight + 200), 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#bg'),
@@ -49,8 +49,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.set(0, 2, 50);
+renderer.setSize(window.innerWidth, window.innerHeight + 200);
+camera.position.set(0, -3, 50);
 camera.lookAt(0, 0, 90);
 
 renderer.render(scene, camera);
